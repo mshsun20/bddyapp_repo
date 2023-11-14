@@ -3,15 +3,17 @@ const router = express.Router()
 const mongoose = require('mongoose')
 require('../db/dbconfig')
 const Dept = require('../model/deptSchema')
+const Desig = require('../model/desigSchema')
+const Lang = require('../model/langSchema')
 const Account = require('../model/accountSchema')
 const Contact = require('../model/contactSchema')
-
+const Evt = require('../model/evtSchema')
 // Routes----------------------------------------------------------------
 router.get('/', (req, res) => {
     res.json({success:`Server is Online...`, statuscode:200})
 })
 
-router.post('/contact', (req, res) => {
+router.route('/contact').post((req, res) => {
     const {deptname, deptinfo} = req.body
     try {
         const dept = new Dept({deptname, deptinfo})

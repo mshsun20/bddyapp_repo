@@ -25,11 +25,11 @@ const accountSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    deptid: {
+    dept_id: {
         type: String,
         required: true,
     },
-    desigid: {
+    desig_id: {
         type: String,
         required: true,
     },
