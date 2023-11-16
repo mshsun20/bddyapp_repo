@@ -3,46 +3,44 @@ import axios from 'axios'
 import Server from '../Server'
 import { NavLink } from 'react-router-dom'
 
-const Designations = () => {
-  const [dsg, setDsg] = useState()
+const Languages = () => {
+  const [lng, setLng] = useState()
 
-  const getDesig = async () => {
+  const getLang = async () => {
     try {
-      const res = await axios.get(`${Server}/desig`)
+      const res = await axios.get(`${Server}/lang`)
       const data = await res.data.data
-      console.log(data)
-      setDsg(data)
+      // console.log(data)
+      setLng(data)
     } catch (error) {
       console.error(error)
     }
   }
   useEffect(() => {
-    getDesig()
+    getLang()
   }, [])
 
   return (
     <>
         <div>
-            <div className="dsg">
-              <div className="hdr">All Designations List</div>
+            <div className="lng">
+              <div className="hdr">All Languages</div>
               <div className="lst">
                 <table className='tbl' border={1}>
                   <thead>
                     <tr>
-                      <th>Designation</th>
-                      <th>Level</th>
-                      <th>Info</th>
+                      <th>Language</th>
+                      <th>Details</th>
                       <th>Edit</th>
                       <th>Delete</th>
                     </tr>
                   </thead>
                   <tbody>
                     {
-                      (dsg) ? dsg.map((elm, i) => (
+                      (lng) ? lng.map((elm, i) => (
                         <tr key={i}>
-                          <td>{elm.designame}</td>
-                          <td>{elm.desiglvl}</td>
-                          <td>{elm.desiginfo}</td>
+                          <td>{elm.langname}</td>
+                          <td>{elm.langdet}</td>
                           <td>_</td>
                           <td>x</td>
                         </tr>
@@ -52,12 +50,12 @@ const Designations = () => {
                 </table>
               </div>
             </div>
-            <div className="dsglnks">
-                <NavLink to='/adddesig'>Add New Designations</NavLink>
+            <div className="lnglnks">
+                <NavLink to='/addlang'>Add New Languages</NavLink>
             </div>
         </div>
     </>
   )
 }
 
-export default Designations
+export default Languages

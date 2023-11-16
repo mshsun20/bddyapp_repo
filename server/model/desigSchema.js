@@ -5,6 +5,9 @@ const desigSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    desiglvl: {
+        type: String,
+    },
     desiginfo: {
         type: String,
     },

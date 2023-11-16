@@ -1,52 +1,58 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 import Server from '../Server'
+import { NavLink } from 'react-router-dom'
 
 const Departments = () => {
-    const [val, setVal] = useState({deptname:'', deptinfo:''})
-    let name, value
-    
-    const hndlchng = (e) => {
-        name = e.target.name
-        value = e.target.value
-        setVal({...val, [name]:value})
-    }
+  const [dpt, setDpt] = useState()
 
-    const pushData = async (e) => {
-        e.preventDefault()
-        // const {deptname, deptinfo} = val
-
-        try {
-            if (!val) {
-                const {deptname, deptinfo} = val
-                const res = await axios.post(`${Server}/contact`, {deptname, deptinfo})
-                const data = await res.data
-                console.log(data)
-            }
-            else {
-                alert("Department Name shouldn't be blank.")
-            }
-        } catch (error) {
-            console.error(error)
-        }
+  const getDept = async () => {
+    try {
+      const res = await axios.get(`${Server}/dept`)
+      const data = await res.data.data
+      // console.log(data)
+      setDpt(data)
+    } catch (error) {
+      console.error(error)
     }
+  }
+  useEffect(() => {
+    getDept()
+  }, [])
 
   return (
     <>
         <div>
-            <form className='deptform'>
-                <div className="frmgrp">
-                    <label htmlFor="deptname">Department Name:</label>
-                    <input type="text" name="deptname" id="deptname" onChange={hndlchng} />
-                </div>
-                <div className="frmgrp">
-                    <label htmlFor="deptinfo">Department Info:</label>
-                    <input type="text" name="deptinfo" id="deptinfo" onChange={hndlchng} />
-                </div>
-                <div className="frmsub">
-                    <input type="submit" value="Add" onClick={pushData} />
-                </div>
-            </form>
+            <div className="dpt">
+              <div className="hdr">All Departments List</div>
+              <div className="lst">
+                <table className='tbl' border={1}>
+                  <thead>
+                    <tr>
+                      <th>Department</th>
+                      <th>Info</th>
+                      <th>Edit</th>
+                      <th>Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {
+                      (dpt) ? dpt.map((elm, i) => (
+                        <tr key={i}>
+                          <td>{elm.deptname}</td>
+                          <td>{elm.deptinfo}</td>
+                          <td>_</td>
+                          <td>x</td>
+                        </tr>
+                      )) : null
+                    }
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div className="dptlnks">
+                <NavLink to='/adddept'>Add New Departments</NavLink>
+            </div>
         </div>
     </>
   )

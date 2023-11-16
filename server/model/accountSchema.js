@@ -31,7 +31,9 @@ const accountSchema = new mongoose.Schema({
     },
     desig_id: {
         type: String,
-        required: true,
+    },
+    roles: {
+        type: String,
     },
     empcode: {
         type: String,
