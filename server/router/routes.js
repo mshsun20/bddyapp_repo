@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
 })
 // -----------------------------------------------------------------------
 
-// GET
+// READ
 router.route('/dept').get(async (req, res) => {
     try {
         const dept = await Dept.find()
@@ -40,7 +40,7 @@ router.route('/lang').get(async (req, res) => {
     }
 })
 
-// POST
+// CREATE
 router.route('/contact').post((req, res) => {
     const {deptname, deptinfo} = req.body
     try {
@@ -93,6 +93,10 @@ router.route('/lang').post((req, res) => {
         console.error(error)
     }
 })
+
+// UPDATE
+
+// DELETE
 
 
 module.exports = router
