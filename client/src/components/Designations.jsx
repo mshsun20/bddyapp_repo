@@ -10,7 +10,7 @@ const Designations = () => {
     try {
       const res = await axios.get(`${Server}/desig`)
       const data = await res.data.data
-      console.log(data)
+      // console.log(data)
       setDsg(data)
     } catch (error) {
       console.error(error)
