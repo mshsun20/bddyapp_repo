@@ -7,7 +7,7 @@ const Desig = require('../model/desigSchema')
 const Lang = require('../model/langSchema')
 const Account = require('../model/accountSchema')
 const Contact = require('../model/contactSchema')
-const Evt = require('../model/evtSchema')
+const Evnt = require('../model/evntSchema')
 // Routes----------------------------------------------------------------
 router.get('/', (req, res) => {
     res.json({success:`Server is Online...`, statuscode:200})
@@ -35,6 +35,14 @@ router.route('/lang').get(async (req, res) => {
     try {
         const lang = await Lang.find()
         res.json({success:`All Language details fetched...`, data:lang})
+    } catch (error) {
+        console.error(error)
+    }
+})
+router.route('/evnt').get(async (req, res) => {
+    try {
+        const evnt = await Evnt.find()
+        res.json({success:`All Language details fetched...`, data:evnt})
     } catch (error) {
         console.error(error)
     }
@@ -93,8 +101,22 @@ router.route('/lang').post((req, res) => {
         console.error(error)
     }
 })
+router.route('/evnt').post((req, res) => {
+    const {evnttype, evntname, evntdt, evntdur} = req.body
+    try {
+        const evnt = new Evnt({evnttype, evntname, evntdt, evntdur})
+        evnt.save().then(() => {
+            res.json({success:`Language details stored...`, statuscode:200})
+        }).catch(() => {
+            res.json({error:`Language details couldn't be stored.!!!`, statuscode:500})
+        })
+    } catch (error) {
+        console.error(error)
+    }
+})
 
 // UPDATE
+
 
 // DELETE
 

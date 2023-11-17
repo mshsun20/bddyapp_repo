@@ -14,19 +14,14 @@ const Addevnt = () => {
 
     const pushData = async (e) => {
         e.preventDefault()
-        const {evttype, evtname, evtdt, evtdur} = val
+        const {evnttype, evntname, evntdt, evntdur} = val
 
         try {
-        if (!val) {
-            const res = await axios.post(`${Server}/contact`, {evttype, evtname, evtdt, evtdur})
+            const res = await axios.post(`${Server}/evnt`, {evnttype, evntname, evntdt, evntdur})
             const data = await res.data
             console.log(data)
-        }
-        else {
-            alert("Department Name shouldn't be blank.")
-        }
         } catch (error) {
-        console.error(error)
+            console.error(error)
         }
     }
 
@@ -35,25 +30,25 @@ const Addevnt = () => {
         <div>
             <form className='evtform'>
                 <div className="frmgrp">
-                    <label htmlFor="evttype">Event Type:</label>
-                    <select name="evttype" id="evttype" onChange={hndlchng}>
+                    <label htmlFor="evnttype">Event Type:</label>
+                    <select name="evnttype" id="evnttype" onChange={hndlchng}>
                     <option value="0">----CHOOSE----</option>
-                    <option value="">Birthday</option>
-                    <option value="">Anniversary</option>
-                    <option value="">Custom</option>
+                    <option value="Birthday">Birthday</option>
+                    <option value="Anniversary">Anniversary</option>
+                    <option value="Custom">Custom</option>
                     </select>
                 </div>
                 <div className="frmgrp">
-                    <label htmlFor="evtname">Level:</label>
-                    <input type="text" name="evtname" id="evtname" onChange={hndlchng} />
+                    <label htmlFor="evntname">Event Description:</label>
+                    <input type="text" name="evntname" id="evntname" onChange={hndlchng} />
                 </div>
                 <div className="frmgrp">
-                    <label htmlFor="evtdt">Event Date:</label>
-                    <input type="text" name="evtdt" id="evtdt" onChange={hndlchng} />
+                    <label htmlFor="evntdt">Event Date:</label>
+                    <input type="date" name="evntdt" id="evntdt" onChange={hndlchng} />
                 </div>
                 <div className="frmgrp">
-                    <label htmlFor="evtdur">Duration:</label>
-                    <input type="text" name="evtdur" id="evtdur" onChange={hndlchng} />
+                    <label htmlFor="evntdur">Duration (in Days):</label>
+                    <input type="text" name="evntdur" id="evntdur" onChange={hndlchng} />
                 </div>
                 <div className="frmsub">
                     <input type="submit" value="Add" onClick={pushData} />
